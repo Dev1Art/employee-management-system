@@ -5,6 +5,7 @@ package ru.dev1art.ems.config;
  * @project EMS
  * @date 10.11.2024
  */
+
 import javafx.fxml.FXMLLoader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

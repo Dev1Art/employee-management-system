@@ -7,11 +7,13 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.control.cell.PropertyValueFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.dev1art.ems.entities.Employee;
 import ru.dev1art.ems.services.EmployeeService;
+import ru.dev1art.ems.util.I18NUtil;
 
 import java.math.BigDecimal;
 import java.net.URL;
@@ -43,6 +45,8 @@ public class EmployeeController implements Initializable {
     @FXML
     private TableColumn<Employee, BigDecimal> salary;
     @FXML
+    private ToggleButton menuButton;
+    @FXML
     private Button addEmployeeButton;
     @FXML
     private Button updateEmployeeButton;
@@ -54,9 +58,9 @@ public class EmployeeController implements Initializable {
     private Button languageChangerButton;
     @FXML
     private Button exitButton;
-
     @Autowired
     private EmployeeService employeeService;
+    private boolean isEnglishLocale = true;
 
     public EmployeeController() {}
 
@@ -125,7 +129,13 @@ public class EmployeeController implements Initializable {
         });
 
         languageChangerButton.setOnMouseClicked(action -> {
-
+            addEmployeeButton.textProperty().bind(I18NUtil.createStringBinding("addEmployeeButton"));
+            deleteEmployeeButton.textProperty().bind(I18NUtil.createStringBinding("deleteEmployeeButton"));
+            updateEmployeeButton.textProperty().bind(I18NUtil.createStringBinding("updateEmployeeButton"));
+            refreshTableButton.textProperty().bind(I18NUtil.createStringBinding("refreshTableButton"));
+            languageChangerButton.textProperty().bind(I18NUtil.createStringBinding("languageChangerButton"));
+            exitButton.textProperty().bind(I18NUtil.createStringBinding("exitButton"));
+            menuButton.textProperty().bind(I18NUtil.createStringBinding("menuButton"));
         });
 
         exitButton.setOnMouseClicked(action -> {
