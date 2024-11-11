@@ -17,7 +17,7 @@
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
     <connection id="bc23413a-bd55-4971-9ced-5aba493108d9">
-      <console name="postgres@localhost" type="STANDARD" schema="public" session="Main"><![CDATA[SELECT * FROM employee]]></console>
+      <console name="postgres@localhost" type="STANDARD" schema="public" session="Main"><![CDATA[select * from employee]]></console>
       <console name="PostgreSQL" type="STANDARD" schema="" session="Main" />
     </connection>
   </component>
@@ -36,6 +36,9 @@
   <component name="DBNavigator.Project.ObjectQuickFilterManager">
     <last-used-operator value="EQUAL" />
     <filters />
+  </component>
+  <component name="DBNavigator.Project.ScriptExecutionManager" clear-outputs="true">
+    <recently-used-interfaces />
   </component>
   <component name="DBNavigator.Project.Settings">
     <connections>

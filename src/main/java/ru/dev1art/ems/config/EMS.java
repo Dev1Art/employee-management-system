@@ -36,8 +36,8 @@ public class EMS extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         SpringFXMLLoader loader = configurableApplicationContext.getBean(SpringFXMLLoader.class);
-        Scene scene = new Scene(loader.load("/ru/dev1art/ems/EmployeeController.fxml"), 700, 400);
-        scene.getStylesheets().add(EMS.class.getResource("/ru/dev1art/ems/style.css").toExternalForm());
+        Scene scene = new Scene(loader.load("/ru/dev1art/ems/MainController.fxml"), 700, 400);
+        scene.getStylesheets().add(EMS.class.getResource("/ru/dev1art/ems/styles/mainFxmlStyle.css").toExternalForm());
         stage.setResizable(false);
         stage.initStyle(StageStyle.UNDECORATED);
         stage.setTitle("Hello!");

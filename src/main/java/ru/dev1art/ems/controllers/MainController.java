@@ -4,11 +4,11 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.ToggleButton;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Modality;
+import javafx.stage.Popup;
+import javafx.stage.Stage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.dev1art.ems.entities.Employee;
@@ -26,7 +26,7 @@ import java.util.ResourceBundle;
  * @date 09.11.2024
  */
 @Component
-public class EmployeeController implements Initializable {
+public class MainController implements Initializable {
 
     @FXML
     private TableView<Employee> employeeTable;
@@ -60,9 +60,9 @@ public class EmployeeController implements Initializable {
     private Button exitButton;
     @Autowired
     private EmployeeService employeeService;
-    private boolean isEnglishLocale = true;
+    private boolean isEnglishLocale = false;
 
-    public EmployeeController() {}
+    public MainController() {}
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -114,6 +114,7 @@ public class EmployeeController implements Initializable {
     private void addButtonsActionOnClick() {
         addEmployeeButton.setOnMouseClicked(action -> {
             // new fxml form
+            // addEmployee
         });
 
         updateEmployeeButton.setOnMouseClicked(action -> {
@@ -121,14 +122,21 @@ public class EmployeeController implements Initializable {
         });
 
         deleteEmployeeButton.setOnMouseClicked(action -> {
-            // new fxml form
+            Employee employee = employeeTable.getSelectionModel().getSelectedItems().get(0);
+            employeeService.deleteEmployee(employee.getId());
+            refreshTable();
         });
 
-        refreshTableButton.setOnMouseClicked(action -> {
-
-        });
+        refreshTableButton.setOnMouseClicked(action -> refreshTable());
 
         languageChangerButton.setOnMouseClicked(action -> {
+            if(!isEnglishLocale) {
+                I18NUtil.setLocale(I18NUtil.getSupportedLocales().get(0));
+                isEnglishLocale = true;
+            } else {
+                I18NUtil.setLocale(I18NUtil.getSupportedLocales().get(1));
+                isEnglishLocale = false;
+            }
             addEmployeeButton.textProperty().bind(I18NUtil.createStringBinding("addEmployeeButton"));
             deleteEmployeeButton.textProperty().bind(I18NUtil.createStringBinding("deleteEmployeeButton"));
             updateEmployeeButton.textProperty().bind(I18NUtil.createStringBinding("updateEmployeeButton"));
@@ -141,6 +149,9 @@ public class EmployeeController implements Initializable {
         exitButton.setOnMouseClicked(action -> {
             System.exit(0);
         });
+
+        menuButton.setOnMouseClicked(action -> {});
+
     }
 
 }
