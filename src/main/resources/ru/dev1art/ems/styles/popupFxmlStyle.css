@@ -1,0 +1,18 @@
+.gradient-background {
+    -fx-background-color: #2C5F2D;
+    -fx-background-radius: 10 10 10 10;
+}
+
+.button {
+    -fx-background-color: linear-gradient(from 25% 25% to 100% 100%, #80975E, #2C5F2D);
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+}
+
+.button:hover {
+     -fx-background-color: linear-gradient(from 25% 25% to 100% 100%, #60714A, #1D471E);
+}
+
+.button:pressed {
+    -fx-background-color: #80975E;
+}

@@ -1,6 +1,109 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="150.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.dev1art.ems.controllers.PopUpController" />
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="350.0" prefWidth="150.0" styleClass="gradient-background" stylesheets="@styles/popupFxmlStyle.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.dev1art.ems.controllers.MainController">
+   <VBox prefHeight="350.0" prefWidth="150.0">
+      <opaqueInsets>
+         <Insets />
+      </opaqueInsets>
+      <padding>
+         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+      </padding>
+      <children>
+         <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="28.0" prefWidth="140.0">
+            <children>
+               <Label fx:id="titleLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="28.0" prefWidth="139.0" text="CHANGE FORM" textAlignment="CENTER" textFill="#e7d7d7">
+                  <font>
+                     <Font name="Arial Black" size="13.0" />
+                  </font>
+               </Label>
+            </children>
+            <VBox.margin>
+               <Insets bottom="10.0" />
+            </VBox.margin>
+         </HBox>
+         <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="45.0" prefWidth="140.0">
+            <children>
+               <Label contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="140.0" text="Last Name" textAlignment="CENTER" textFill="#e7d7d7">
+                  <font>
+                     <Font name="Arial Black" size="11.0" />
+                  </font>
+               </Label>
+               <TextField fx:id="lastNameField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="140.0" />
+            </children>
+         </VBox>
+         <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="45.0"
+               prefWidth="140.0">
+            <Label contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+                   minWidth="-Infinity" prefHeight="20.0" prefWidth="140.0" text="Position" textAlignment="CENTER"
+                   textFill="#e7d7d7">
+               <font>
+                  <Font name="Arial Black" size="11.0"/>
+               </font>
+            </Label>
+            <TextField fx:id="positionField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+                       minWidth="-Infinity" prefHeight="20.0" prefWidth="140.0"/>
+         </VBox>
+         <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="45.0" prefWidth="140.0">
+            <children>
+               <Label contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="140.0" text="Birth Date" textAlignment="CENTER" textFill="#e7d7d7">
+                  <font>
+                     <Font name="Arial Black" size="11.0" />
+                  </font>
+               </Label>
+               <TextField fx:id="birthDateField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="140.0" promptText="YYYY-MM-DD" />
+            </children>
+         </VBox>
+         <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="45.0" prefWidth="140.0">
+            <children>
+               <Label contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="140.0" text="Hire Date " textAlignment="CENTER" textFill="#e7d7d7">
+                  <font>
+                     <Font name="Arial Black" size="11.0" />
+                  </font>
+               </Label>
+               <TextField fx:id="hireDateField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="140.0" promptText="YYYY-MM-DD" />
+            </children>
+         </VBox>
+         <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="45.0" prefWidth="140.0">
+            <children>
+               <Label contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="140.0" text="Department Number" textAlignment="CENTER" textFill="#e7d7d7">
+                  <font>
+                     <Font name="Arial Black" size="11.0" />
+                  </font>
+               </Label>
+               <TextField fx:id="departmentNumberField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="140.0" />
+            </children>
+         </VBox>
+         <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="45.0" prefWidth="140.0">
+            <children>
+               <Label contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="140.0" text="Salary" textAlignment="CENTER" textFill="#e7d7d7">
+                  <font>
+                     <Font name="Arial Black" size="11.0" />
+                  </font>
+               </Label>
+               <TextField fx:id="salaryField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="140.0" />
+            </children>
+         </VBox>
+         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+            <children>
+               <Button fx:id="submitButton" alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="25.0" prefWidth="80.0" stylesheets="@styles/popupFxmlStyle.css" text="Submit" textAlignment="CENTER" textFill="#e7d7d7">
+                  <HBox.margin>
+                     <Insets left="20.0" right="20.0" />
+                  </HBox.margin>
+                  <font>
+                     <Font name="Arial Black" size="12.0" />
+                  </font>
+                  <effect>
+                     <InnerShadow />
+                  </effect>
+               </Button>
+            </children>
+         </HBox>
+      </children>
+   </VBox>
+</Pane>

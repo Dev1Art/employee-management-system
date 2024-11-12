@@ -1,23 +1,33 @@
 package ru.dev1art.ems.controllers;
 
+import javafx.animation.Interpolator;
+import javafx.animation.ScaleTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.paint.Color;
 import javafx.stage.Modality;
-import javafx.stage.Popup;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+import javafx.util.Duration;
+import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
+import ru.dev1art.ems.config.SpringFXMLLoader;
 import ru.dev1art.ems.entities.Employee;
 import ru.dev1art.ems.services.EmployeeService;
 import ru.dev1art.ems.util.I18NUtil;
-
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.net.URL;
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.ResourceBundle;
 
 /**
@@ -35,15 +45,15 @@ public class MainController implements Initializable {
     @FXML
     private TableColumn<Employee, String> lastNameColumn;
     @FXML
-    private TableColumn<Employee, String> position;
+    private TableColumn<Employee, String> positionColumn;
     @FXML
-    private TableColumn<Employee, LocalDate> birthDate;
+    private TableColumn<Employee, LocalDate> birthDateColumn;
     @FXML
-    private TableColumn<Employee, LocalDate> hireDate;
+    private TableColumn<Employee, LocalDate> hireDateColumn;
     @FXML
-    private TableColumn<Employee, Integer> departmentNumber;
+    private TableColumn<Employee, Integer> departmentNumberColumn;
     @FXML
-    private TableColumn<Employee, BigDecimal> salary;
+    private TableColumn<Employee, BigDecimal> salaryColumn;
     @FXML
     private ToggleButton menuButton;
     @FXML
@@ -58,9 +68,30 @@ public class MainController implements Initializable {
     private Button languageChangerButton;
     @FXML
     private Button exitButton;
+    @FXML
+    private Button submitButton;
+    @FXML
+    private Label titleLabel;
+    @FXML
+    private TextField lastNameField;
+    @FXML
+    private TextField positionField;
+    @FXML
+    private TextField birthDateField;
+    @FXML
+    private TextField hireDateField;
+    @FXML
+    private TextField departmentNumberField;
+    @FXML
+    private TextField salaryField;
+    @Setter
+    private Stage mainStage;
     @Autowired
     private EmployeeService employeeService;
+    @Autowired
+    private ApplicationContext context;
     private boolean isEnglishLocale = false;
+    private boolean isUpdateOperation = false;
 
     public MainController() {}
 
@@ -68,15 +99,15 @@ public class MainController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         lastNameColumn.setCellValueFactory(new PropertyValueFactory<>("last_name"));
-        position.setCellValueFactory(new PropertyValueFactory<>("position"));
-        birthDate.setCellValueFactory(new PropertyValueFactory<>("birth_date"));
-        hireDate.setCellValueFactory(new PropertyValueFactory<>("hire_date"));
-        departmentNumber.setCellValueFactory(new PropertyValueFactory<>("department_number"));
-        salary.setCellValueFactory(new PropertyValueFactory<>("salary"));
+        positionColumn.setCellValueFactory(new PropertyValueFactory<>("position"));
+        birthDateColumn.setCellValueFactory(new PropertyValueFactory<>("birth_date"));
+        hireDateColumn.setCellValueFactory(new PropertyValueFactory<>("hire_date"));
+        departmentNumberColumn.setCellValueFactory(new PropertyValueFactory<>("department_number"));
+        salaryColumn.setCellValueFactory(new PropertyValueFactory<>("salary"));
 
         loadEmployeeData();
-
         addButtonsActionOnClick();
+
     }
 
     private void loadEmployeeData() {
@@ -88,37 +119,72 @@ public class MainController implements Initializable {
         loadEmployeeData();
     }
 
-    private void addEmployee(Employee employee) {
-        employeeService.saveEmployee(employee);
-        refreshTable();
+    private void addEmployee() {
+        try {
+            Employee employee = new Employee();
+            String emp_last_name = lastNameField.getText();
+            String emp_position = positionField.getText();
+            LocalDate emp_birth_date = LocalDate.parse(birthDateField.getText());
+            LocalDate emp_hire_date = LocalDate.parse(hireDateField.getText());
+            Integer emp_department_number = Integer.parseInt(departmentNumberField.getText());
+            BigDecimal emp_salary = new BigDecimal(salaryField.getText());
+            employee.setLast_name(emp_last_name);
+            employee.setPosition(emp_position);
+            employee.setBirth_date(emp_birth_date);
+            employee.setHire_date(emp_hire_date);
+            employee.setDepartment_number(emp_department_number);
+            employee.setSalary(emp_salary);
+            employeeService.saveEmployee(employee);
+
+        } catch (NumberFormatException | DateTimeParseException | NullPointerException exception) {
+            //TODO
+        }
     }
 
-    private void updateEmployee(Employee employee) {
-        Employee selectedEmployee = employeeService.findById(employee.getId());
-        selectedEmployee.setLast_name(employee.getLast_name());
-        selectedEmployee.setPosition(employee.getPosition());
-        selectedEmployee.setBirth_date(employee.getBirth_date());
-        selectedEmployee.setHire_date(employee.getHire_date());
-        selectedEmployee.setDepartment_number(employee.getDepartment_number());
-        selectedEmployee.setSalary(employee.getSalary());
-        employeeService.saveEmployee(selectedEmployee);
-        refreshTable();
-    }
-
-    private void deleteEmployee() {
-        Employee selectedEmployee = employeeTable.getSelectionModel().getSelectedItem();
-        employeeService.deleteEmployee(selectedEmployee.getId());
-        refreshTable();
+    private void updateEmployee() {
+        try {
+            Employee employeeToSave = employeeTable.getSelectionModel().getSelectedItems().get(0);
+            String emp_last_name = lastNameField.getText();
+            String emp_position = positionField.getText();
+            LocalDate emp_birth_date = LocalDate.parse(birthDateField.getText());
+            LocalDate emp_hire_date = LocalDate.parse(hireDateField.getText());
+            Integer emp_department_number = Integer.parseInt(departmentNumberField.getText());
+            BigDecimal emp_salary = new BigDecimal(salaryField.getText());
+            employeeToSave.setLast_name(emp_last_name);
+            employeeToSave.setPosition(emp_position);
+            employeeToSave.setBirth_date(emp_birth_date);
+            employeeToSave.setHire_date(emp_hire_date);
+            employeeToSave.setDepartment_number(emp_department_number);
+            employeeToSave.setSalary(emp_salary);
+            employeeService.saveEmployee(employeeToSave);
+        } catch (NumberFormatException | DateTimeParseException | NullPointerException exception) {
+            //TODO
+        }
     }
 
     private void addButtonsActionOnClick() {
         addEmployeeButton.setOnMouseClicked(action -> {
-            // new fxml form
-            // addEmployee
+            isUpdateOperation = false;
+            setUpPopUpFXML("Adding");
         });
 
         updateEmployeeButton.setOnMouseClicked(action -> {
-            // new fxml form
+            ObservableList<Employee> employee = employeeTable.getSelectionModel().getSelectedItems();
+            if(employee.isEmpty()) {
+                //TODO
+            } else {
+                isUpdateOperation = true;
+                setUpPopUpFXML("Updating");
+
+                Employee employeeToUpdate = employee.get(0);
+
+                lastNameField.setText(employeeToUpdate.getLast_name());
+                positionField.setText(employeeToUpdate.getPosition());
+                birthDateField.setText(employeeToUpdate.getBirth_date().toString());
+                hireDateField.setText(employeeToUpdate.getHire_date().toString());
+                departmentNumberField.setText(employeeToUpdate.getDepartment_number().toString());
+                salaryField.setText(employeeToUpdate.getSalary().toString());
+            }
         });
 
         deleteEmployeeButton.setOnMouseClicked(action -> {
@@ -150,8 +216,51 @@ public class MainController implements Initializable {
             System.exit(0);
         });
 
-        menuButton.setOnMouseClicked(action -> {});
+        menuButton.setOnMouseClicked(action -> {
+            //TODO
+        });
 
     }
 
+    private void setUpPopUpFXML(String title) {
+        try {
+            double mainX = mainStage.getX();
+            double mainY = mainStage.getY();
+            SpringFXMLLoader loader = context.getBean(SpringFXMLLoader.class);
+            Parent parent = loader.load("/ru/dev1art/ems/PopUpController.fxml");
+            ScaleTransition st = new ScaleTransition(Duration.millis(100), parent);
+            st.setInterpolator(Interpolator.EASE_BOTH);
+            st.setFromX(0);
+            st.setFromY(0);
+            Stage addStage = new Stage();
+            addStage.setTitle(title);
+            addStage.initModality(Modality.NONE);
+            addStage.initStyle(StageStyle.TRANSPARENT);
+            addStage.initOwner(mainStage);
+            addStage.setResizable(false);
+            Scene scene = new Scene(parent, 150, 350);
+            scene.setFill(Color.TRANSPARENT);
+            addStage.focusedProperty().addListener((obs, wasFocused, isNowFocused) -> {
+                if (!isNowFocused) {
+                    addStage.close();
+                }
+            });
+            addStage.setScene(scene);
+            addStage.show();
+            addStage.setX(mainX - 150 - 5);
+            addStage.setY(mainY);
+
+            submitButton.setOnMouseClicked(action -> {
+                if(isUpdateOperation){
+                    addEmployee();
+                } else {
+                    //TODO
+                    updateEmployee();
+                }
+                refreshTable();
+            });
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
