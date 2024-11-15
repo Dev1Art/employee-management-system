@@ -69,29 +69,40 @@ public class MainController implements Initializable {
     @FXML
     private Button exitButton;
     @FXML
-    private Button submitButton;
+    private Label popUpTitle;
     @FXML
-    private Label titleLabel;
+    private Button submitButton;
     @FXML
     private TextField lastNameField;
     @FXML
+    private Label lastNameLabel;
+    @FXML
     private TextField positionField;
+    @FXML
+    private Label positionLabel;
     @FXML
     private TextField birthDateField;
     @FXML
+    private Label birthDateLabel;
+    @FXML
     private TextField hireDateField;
+    @FXML
+    private Label hireDateLabel;
     @FXML
     private TextField departmentNumberField;
     @FXML
+    private Label departmentNumberLabel;
+    @FXML
     private TextField salaryField;
+    @FXML
+    private Label salaryLabel;
     @Setter
     private Stage mainStage;
     @Autowired
     private EmployeeService employeeService;
     @Autowired
     private ApplicationContext context;
-    private boolean isEnglishLocale = false;
-    private boolean isUpdateOperation = false;
+    private boolean isEnglishLocale = true;
 
     public MainController() {}
 
@@ -120,70 +131,41 @@ public class MainController implements Initializable {
     }
 
     private void addEmployee() {
-        try {
-            Employee employee = new Employee();
-            String emp_last_name = lastNameField.getText();
-            String emp_position = positionField.getText();
-            LocalDate emp_birth_date = LocalDate.parse(birthDateField.getText());
-            LocalDate emp_hire_date = LocalDate.parse(hireDateField.getText());
-            Integer emp_department_number = Integer.parseInt(departmentNumberField.getText());
-            BigDecimal emp_salary = new BigDecimal(salaryField.getText());
-            employee.setLast_name(emp_last_name);
-            employee.setPosition(emp_position);
-            employee.setBirth_date(emp_birth_date);
-            employee.setHire_date(emp_hire_date);
-            employee.setDepartment_number(emp_department_number);
-            employee.setSalary(emp_salary);
-            employeeService.saveEmployee(employee);
-
-        } catch (NumberFormatException | DateTimeParseException | NullPointerException exception) {
-            //TODO
-        }
+        Employee employee = new Employee();
+        fromTextFieldsToEntity(employee);
+        employeeService.saveEmployee(employee);
     }
 
     private void updateEmployee() {
+        Employee employeeToSave = employeeTable.getSelectionModel().getSelectedItems().get(0);
+        fromTextFieldsToEntity(employeeToSave);
+        employeeService.saveEmployee(employeeToSave);
+    }
+
+    private void fromTextFieldsToEntity(Employee employeeToSave) {
         try {
-            Employee employeeToSave = employeeTable.getSelectionModel().getSelectedItems().get(0);
-            String emp_last_name = lastNameField.getText();
-            String emp_position = positionField.getText();
-            LocalDate emp_birth_date = LocalDate.parse(birthDateField.getText());
-            LocalDate emp_hire_date = LocalDate.parse(hireDateField.getText());
-            Integer emp_department_number = Integer.parseInt(departmentNumberField.getText());
-            BigDecimal emp_salary = new BigDecimal(salaryField.getText());
-            employeeToSave.setLast_name(emp_last_name);
-            employeeToSave.setPosition(emp_position);
-            employeeToSave.setBirth_date(emp_birth_date);
-            employeeToSave.setHire_date(emp_hire_date);
-            employeeToSave.setDepartment_number(emp_department_number);
-            employeeToSave.setSalary(emp_salary);
-            employeeService.saveEmployee(employeeToSave);
-        } catch (NumberFormatException | DateTimeParseException | NullPointerException exception) {
+            employeeToSave.setLast_name(lastNameField.getText());
+            employeeToSave.setPosition(positionField.getText());
+            employeeToSave.setBirth_date(LocalDate.parse(birthDateField.getText()));
+            employeeToSave.setHire_date(LocalDate.parse(hireDateField.getText()));
+            employeeToSave.setDepartment_number(Integer.parseInt(departmentNumberField.getText()));
+            employeeToSave.setSalary(new BigDecimal(salaryField.getText()));
+        }  catch (NumberFormatException | DateTimeParseException | NullPointerException exception) {
             //TODO
         }
     }
 
     private void addButtonsActionOnClick() {
-        addEmployeeButton.setOnMouseClicked(action -> {
-            isUpdateOperation = false;
-            setUpPopUpFXML("Adding");
-        });
+        addEmployeeButton.setOnMouseClicked(action -> setUpPopUpFXML(false));
 
         updateEmployeeButton.setOnMouseClicked(action -> {
-            ObservableList<Employee> employee = employeeTable.getSelectionModel().getSelectedItems();
-            if(employee.isEmpty()) {
+            ObservableList<Employee> employees = employeeTable.getSelectionModel().getSelectedItems();
+            if (employees.isEmpty()) {
                 //TODO
             } else {
-                isUpdateOperation = true;
-                setUpPopUpFXML("Updating");
-
-                Employee employeeToUpdate = employee.get(0);
-
-                lastNameField.setText(employeeToUpdate.getLast_name());
-                positionField.setText(employeeToUpdate.getPosition());
-                birthDateField.setText(employeeToUpdate.getBirth_date().toString());
-                hireDateField.setText(employeeToUpdate.getHire_date().toString());
-                departmentNumberField.setText(employeeToUpdate.getDepartment_number().toString());
-                salaryField.setText(employeeToUpdate.getSalary().toString());
+                setUpPopUpFXML(true);
+                Employee employee = employees.get(0);
+                populateTextFieldsForEditing(employee);
             }
         });
 
@@ -210,19 +192,31 @@ public class MainController implements Initializable {
             languageChangerButton.textProperty().bind(I18NUtil.createStringBinding("languageChangerButton"));
             exitButton.textProperty().bind(I18NUtil.createStringBinding("exitButton"));
             menuButton.textProperty().bind(I18NUtil.createStringBinding("menuButton"));
+            lastNameColumn.textProperty().bind(I18NUtil.createStringBinding("lastNameColumn"));
+            positionColumn.textProperty().bind(I18NUtil.createStringBinding("positionColumn"));
+            birthDateColumn.textProperty().bind(I18NUtil.createStringBinding("birthDateColumn"));
+            hireDateColumn.textProperty().bind(I18NUtil.createStringBinding("hireDateColumn"));
+            departmentNumberColumn.textProperty().bind(I18NUtil.createStringBinding("departmentNumberColumn"));
+            salaryColumn.textProperty().bind(I18NUtil.createStringBinding("salaryColumn"));
         });
 
-        exitButton.setOnMouseClicked(action -> {
-            System.exit(0);
-        });
+        exitButton.setOnMouseClicked(action -> System.exit(0));
 
         menuButton.setOnMouseClicked(action -> {
             //TODO
         });
-
     }
 
-    private void setUpPopUpFXML(String title) {
+    private void populateTextFieldsForEditing(Employee employee) {
+        lastNameField.setText(employee.getLast_name());
+        positionField.setText(employee.getPosition());
+        birthDateField.setText(employee.getBirth_date().toString());
+        hireDateField.setText(employee.getHire_date().toString());
+        departmentNumberField.setText(employee.getDepartment_number().toString());
+        salaryField.setText(employee.getSalary().toString());
+    }
+
+    private void setUpPopUpFXML(boolean isEditingMode) {
         try {
             double mainX = mainStage.getX();
             double mainY = mainStage.getY();
@@ -233,12 +227,28 @@ public class MainController implements Initializable {
             st.setFromX(0);
             st.setFromY(0);
             Stage addStage = new Stage();
-            addStage.setTitle(title);
+
+            if(isEnglishLocale) {
+                I18NUtil.setLocale(I18NUtil.getSupportedLocales().get(0));
+            } else {
+                I18NUtil.setLocale(I18NUtil.getSupportedLocales().get(1));
+            }
+
+            addStage.titleProperty().bind(I18NUtil.createStringBinding("titleName"));
+            submitButton.textProperty().bind(I18NUtil.createStringBinding("submitButton"));
+            popUpTitle.textProperty().bind(I18NUtil.createStringBinding("popUpTitle"));
+            lastNameLabel.textProperty().bind(I18NUtil.createStringBinding("lastNameLabel"));
+            positionLabel.textProperty().bind(I18NUtil.createStringBinding("positionLabel"));
+            birthDateLabel.textProperty().bind(I18NUtil.createStringBinding("birthDateLabel"));
+            hireDateLabel.textProperty().bind(I18NUtil.createStringBinding("hireDateLabel"));
+            departmentNumberLabel.textProperty().bind(I18NUtil.createStringBinding("departmentNumberLabel"));
+            salaryLabel.textProperty().bind(I18NUtil.createStringBinding("salaryLabel"));
+
             addStage.initModality(Modality.NONE);
             addStage.initStyle(StageStyle.TRANSPARENT);
             addStage.initOwner(mainStage);
             addStage.setResizable(false);
-            Scene scene = new Scene(parent, 150, 350);
+            Scene scene = new Scene(parent, 150, 360);
             scene.setFill(Color.TRANSPARENT);
             addStage.focusedProperty().addListener((obs, wasFocused, isNowFocused) -> {
                 if (!isNowFocused) {
@@ -250,17 +260,20 @@ public class MainController implements Initializable {
             addStage.setX(mainX - 150 - 5);
             addStage.setY(mainY);
 
-            submitButton.setOnMouseClicked(action -> {
-                if(isUpdateOperation){
-                    addEmployee();
-                } else {
-                    //TODO
-                    updateEmployee();
-                }
-                refreshTable();
-            });
+            submitButton.setOnMouseClicked(action -> handleSubmit(isEditingMode));
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            //TODO
         }
+    }
+
+    private void handleSubmit(boolean isEditingMode) {
+        if(isEditingMode) {
+            updateEmployee();
+            //TODO
+        } else {
+            addEmployee();
+            //TODO
+        }
+        refreshTable();
     }
 }
