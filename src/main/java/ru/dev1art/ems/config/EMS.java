@@ -31,7 +31,7 @@ public class EMS extends Application {
     }
 
     @Override
-    public void init() throws Exception {
+    public void init() {
         configurableApplicationContext = SpringApplication.run(EMS.class);
     }
 
@@ -53,7 +53,7 @@ public class EMS extends Application {
     }
 
     @Override
-    public void stop() throws Exception {
+    public void stop() {
         configurableApplicationContext.close();
     }
 }

@@ -17,6 +17,7 @@ import java.time.LocalDate;
 @Table(name = "employee")
 @Data
 @NoArgsConstructor
+@Cacheable
 public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
