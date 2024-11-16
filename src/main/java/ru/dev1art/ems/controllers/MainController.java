@@ -144,11 +144,11 @@ public class MainController implements Initializable {
 
     private void fromTextFieldsToEntity(Employee employeeToSave) {
         try {
-            employeeToSave.setLast_name(lastNameField.getText());
+            employeeToSave.setLastName(lastNameField.getText());
             employeeToSave.setPosition(positionField.getText());
-            employeeToSave.setBirth_date(LocalDate.parse(birthDateField.getText()));
-            employeeToSave.setHire_date(LocalDate.parse(hireDateField.getText()));
-            employeeToSave.setDepartment_number(Integer.parseInt(departmentNumberField.getText()));
+            employeeToSave.setBirthDate(LocalDate.parse(birthDateField.getText()));
+            employeeToSave.setHireDate(LocalDate.parse(hireDateField.getText()));
+            employeeToSave.setDepartmentNumber(Integer.parseInt(departmentNumberField.getText()));
             employeeToSave.setSalary(new BigDecimal(salaryField.getText()));
         }  catch (NumberFormatException | DateTimeParseException | NullPointerException exception) {
             //TODO
@@ -208,11 +208,11 @@ public class MainController implements Initializable {
     }
 
     private void populateTextFieldsForEditing(Employee employee) {
-        lastNameField.setText(employee.getLast_name());
+        lastNameField.setText(employee.getLastName());
         positionField.setText(employee.getPosition());
-        birthDateField.setText(employee.getBirth_date().toString());
-        hireDateField.setText(employee.getHire_date().toString());
-        departmentNumberField.setText(employee.getDepartment_number().toString());
+        birthDateField.setText(employee.getBirthDate().toString());
+        hireDateField.setText(employee.getHireDate().toString());
+        departmentNumberField.setText(employee.getDepartmentNumber().toString());
         salaryField.setText(employee.getSalary().toString());
     }
 

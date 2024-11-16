@@ -1,0 +1,23 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://${POSTGRES_CONTAINER_NAME:localhost}:5432/${POSTGRES_DB:employee_db}
+    username: ${POSTGRES_USER:postgres}
+    password: ${POSTGRES_PASSWORD:admin}
+    driver-class-name: ${POSTGRES_DRIVER_CLASS}
+    hikari:
+      maximum-pool-size: ${MAX_POOL_SIZE}
+      minimum-idle: ${MIN_POOL_SIZE}
+  jpa:
+    hibernate:
+      ddl-auto: ${DDL_AUTO}
+    database: postgresql
+    show-sql: ${SHOW_SQL}
+  flyway:
+    enabled: true
+    locations: /db/migration
+    validate-on-migrate: true
+
+logging:
+  level:
+    org.springframework: ${LOG_LEVEL}
+    org.hibernate: ${LOG_LEVEL}

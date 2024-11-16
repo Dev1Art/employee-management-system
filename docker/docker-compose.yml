@@ -1,0 +1,75 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: ../
+      dockerfile: docker/Dockerfile
+    container_name: main_app
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_CONTAINER_NAME: ${POSTGRES_CONTAINER_NAME}
+    depends_on:
+      flyway-migrations:
+        condition: service_completed_successfully
+      postgresql:
+        condition: service_healthy
+    networks:
+      ems:
+        aliases:
+          - app
+
+  flyway-migrations:
+    image: flyway/flyway:10.21.0
+    container_name: flyway
+    restart: on-failure
+    depends_on:
+      postgresql:
+        condition: service_healthy
+    command:
+      - -url=jdbc:postgresql://${POSTGRES_CONTAINER_NAME}:5432/${POSTGRES_DB}
+      - -user=${POSTGRES_USER}
+      - -password=${POSTGRES_PASSWORD}
+      - migrate
+    volumes:
+      - ../db/migration:/flyway/sql
+    networks:
+      - ems
+
+  postgresql:
+    image: ${POSTGRES_CONTAINER_NAME}:latest
+    container_name: ${POSTGRES_CONTAINER_NAME}
+    ports:
+      - "5432:5432"
+    restart: on-failure
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - .init_db:/docker-entrypoint-initdb.d
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $POSTGRES_USER"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+          memory: 4G
+    networks:
+      - ems
+
+volumes:
+  ems_data: { }
+
+
+networks:
+  ems: { }
+

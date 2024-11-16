@@ -46,11 +46,11 @@ public class EmployeeService {
     }
 
     public int getAgeAtHire(Employee employee) {
-        return Period.between(employee.getBirth_date(), employee.getHire_date()).getYears();
+        return Period.between(employee.getBirthDate(), employee.getHireDate()).getYears();
     }
 
     public int getCurrentAge(Employee employee) {
-        return Period.between(employee.getBirth_date(), LocalDate.now()).getYears();
+        return Period.between(employee.getBirthDate(), LocalDate.now()).getYears();
     }
 
     public List<Employee> getEmployeesInDepartmentYoungerThan(Integer deptNo, Integer age) {

@@ -48,7 +48,7 @@
           <description value="" />
           <database-type value="POSTGRES" />
           <config-type value="BASIC" />
-          <database-version value="16.3" />
+          <database-version value="17.1" />
           <driver-source value="BUNDLED" />
           <driver-library value="" />
           <driver value="" />
