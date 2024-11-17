@@ -27,7 +27,7 @@ public class EMS extends Application {
     private ConfigurableApplicationContext configurableApplicationContext;
 
     public static void main(String[] args) {
-        Application.launch(args);
+        Application.launch(EMS.class, args);
     }
 
     @Override

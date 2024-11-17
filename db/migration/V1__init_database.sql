@@ -1,10 +1,10 @@
 CREATE TABLE employee
 (
-    id BIGSERIAL PRIMARY KEY,
-    lastName VARCHAR NOT NULL,
-    position VARCHAR NOT NULL,
+    id SERIAL PRIMARY KEY,
+    lastName VARCHAR(25) NOT NULL,
+    position VARCHAR(25) NOT NULL,
     birthDate DATE NOT NULL,
     hireDate DATE NOT NULL,
     departmentNumber INTEGER NOT NULL,
-    salary DECIMAL(7, 2) NOT NULL
+    salary DECIMAL(10, 2) NOT NULL
 );

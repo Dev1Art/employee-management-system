@@ -17,26 +17,22 @@ import java.time.LocalDate;
 @Table(name = "employee")
 @Data
 @NoArgsConstructor
-@Cacheable
 public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
+    @Column(nullable = false)
     private Integer id;
-    @Column(name = "lastName", length = 25)
+    @Column(length = 25)
     @NotBlank(message = "Last name is mandatory!")
     private String lastName;
     @NotBlank(message = "Employee position is mandatory!")
     private String position;
-    @Column(name = "birthDate")
     @NotNull(message = "Date of birth can not be empty!")
     @Past(message = "Date of birth must be in the past!")
     private LocalDate birthDate;
-    @Column(name = "hireDate")
     @NotNull(message = "Hire date can not be empty!")
     @PastOrPresent(message = "Hire date should be present or in the past!")
     private LocalDate hireDate;
-    @Column(name = "departmentNumber")
     @Min(value = 0)
     private Integer departmentNumber;
     @DecimalMin(value = "0.0", inclusive = false)
