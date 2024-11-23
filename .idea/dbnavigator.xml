@@ -17,7 +17,7 @@
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
     <connection id="bc23413a-bd55-4971-9ced-5aba493108d9">
-      <console name="postgres@localhost" type="STANDARD" schema="public" session="Main"><![CDATA[select * from employee]]></console>
+      <console name="postgres@localhost" type="STANDARD" schema="public" session="Main"><![CDATA[SELECT * FROM employee]]></console>
       <console name="PostgreSQL" type="STANDARD" schema="" session="Main" />
     </connection>
   </component>
@@ -25,7 +25,9 @@
     <last-used-providers />
   </component>
   <component name="DBNavigator.Project.DatabaseFileManager">
-    <open-files />
+    <open-files>
+      <object connection-id="bc23413a-bd55-4971-9ced-5aba493108d9" object-ref="consoles/postgres@localhost" />
+    </open-files>
   </component>
   <component name="DBNavigator.Project.DatabaseSessionManager">
     <connection id="bc23413a-bd55-4971-9ced-5aba493108d9" />
@@ -48,7 +50,7 @@
           <description value="" />
           <database-type value="POSTGRES" />
           <config-type value="BASIC" />
-          <database-version value="16.3" />
+          <database-version value="17.1" />
           <driver-source value="BUNDLED" />
           <driver-library value="" />
           <driver value="" />

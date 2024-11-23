@@ -47,7 +47,7 @@ public class EMS extends Application {
 
         stage.setResizable(false);
         stage.initStyle(StageStyle.TRANSPARENT);
-        stage.setTitle("Hello!");
+        stage.setTitle("EMS");
         stage.setScene(scene);
         stage.show();
     }

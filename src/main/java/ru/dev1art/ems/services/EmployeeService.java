@@ -1,7 +1,6 @@
 package ru.dev1art.ems.services;
 
 import jakarta.transaction.Transactional;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.dev1art.ems.entities.Employee;
 import ru.dev1art.ems.repos.EmployeeRepository;
@@ -23,7 +22,6 @@ import java.util.Optional;
 public class EmployeeService {
     private final EmployeeRepository employeeRepository;
 
-    @Autowired
     public EmployeeService(EmployeeRepository employeeRepository) {
         this.employeeRepository = employeeRepository;
     }
@@ -46,11 +44,11 @@ public class EmployeeService {
     }
 
     public int getAgeAtHire(Employee employee) {
-        return Period.between(employee.getBirth_date(), employee.getHire_date()).getYears();
+        return Period.between(employee.getBirthDate(), employee.getHireDate()).getYears();
     }
 
     public int getCurrentAge(Employee employee) {
-        return Period.between(employee.getBirth_date(), LocalDate.now()).getYears();
+        return Period.between(employee.getBirthDate(), LocalDate.now()).getYears();
     }
 
     public List<Employee> getEmployeesInDepartmentYoungerThan(Integer deptNo, Integer age) {

@@ -1,5 +1,5 @@
 .gradient-background {
-    -fx-background-color: #2C5F2D;
+    -fx-background-color: rgb(137, 135, 230);
     -fx-background-radius: 10 10 10 10;
 }
 
@@ -30,7 +30,7 @@
 }
 
 .container {
-    -fx-background-color: rgba(255, 255, 255, 0.4);
+    -fx-background-color: rgba(255, 255, 255, 0.15);
     -fx-background-radius: 10;
 }
 
@@ -45,27 +45,82 @@
     -fx-padding: 5px 0;
 }
 
+
+.table-view{
+   -fx-background-color: transparent;
+}
+
+.table-view:focused{
+    -fx-background-color: transparent;
+}
+
+.table-view .column-header-background{
+    -fx-background-color: rgba(230, 230, 230 , 0.2);
+}
+
+.table-view .column-header-background .label{
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+}
+
+.table-view .column-header {
+    -fx-background-color: transparent;
+}
+
+.table-view .table-cell{
+    -fx-text-fill: white;
+}
+
+.table-row-cell{
+    -fx-background-color: -fx-table-cell-border-color, rgba(122, 121, 182, 0.8);
+    -fx-background-insets: 0, 0 0 1 0;
+    -fx-padding: 0.0em;
+}
+
+.table-row-cell:odd{
+    -fx-background-color: -fx-table-cell-border-color, rgba(144, 143, 210, 0.8);
+    -fx-background-insets: 0, 0 0 1 0;
+    -fx-padding: 0.0em;
+}
+
+.table-row-cell:selected {
+    -fx-background-color: #1a3046;
+    -fx-background-insets: 0;
+    -fx-background-radius: 1;
+}
+
+.table-view > .virtual-flow > .scroll-bar:vertical,
+.table-view > .virtual-flow > .scroll-bar:vertical > .track,
+.table-view > .virtual-flow > .scroll-bar:vertical > .track-background,
+.table-view > .virtual-flow > .scroll-bar:horizontal,
+.table-view > .virtual-flow > .scroll-bar:horizontal > .track,
+.table-view > .virtual-flow > .scroll-bar:horizontal > .track-background {
+    -fx-background-color: transparent;
+}
+
+.table-view > .virtual-flow > .scroll-bar > .increment-button,
+.table-view > .virtual-flow > .scroll-bar > .decrement-button {
+    -fx-opacity: 0;
+}
+
 .button {
-    -fx-background-color: linear-gradient(from 25% 25% to 100% 100%, #80975E, #2C5F2D);
-    -fx-border-radius: 5px;
-    -fx-background-radius: 5px;
+    -fx-background-color: transparent;
+    -fx-border-width: 0;
+}
+
+.button:focus {
+    -fx-background-color: rgba(0, 0, 0, 0.1);
 }
 
 .button:hover {
-     -fx-background-color: linear-gradient(from 25% 25% to 100% 100%, #60714A, #1D471E);
+    -fx-background-color: rgba(0, 0, 0, 0.1);
 }
 
 .button:pressed {
-    -fx-background-color: #80975E;
+    -fx-background-color: rgba(0, 0, 0, 0.2);
 }
 
-
-
-
-
-
-
-
-
-
+.button:active {
+    -fx-background-color: rgba(0, 0, 0, 0.2);
+}
 
