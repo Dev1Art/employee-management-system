@@ -7,7 +7,6 @@ import org.springframework.stereotype.Repository;
 import ru.dev1art.ems.entities.Employee;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -19,8 +18,8 @@ import java.util.List;
 public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
 
     // incorporate native SQL within JPQL query using FUNCTION()
-    @Query("SELECT e FROM Employee e WHERE e.department_number = :deptNo " +
-            "AND FUNCTION('DATEDIFF', YEAR, e.birth_date, CURRENT_DATE) < :age")
+    @Query("SELECT e FROM Employee e WHERE e.departmentNumber = :deptNo " +
+            "AND FUNCTION('DATEDIFF', YEAR, e.birthDate, CURRENT_DATE) < :age")
     List<Employee> findEmployeesInDepartmentYoungerThan(Integer deptNo, Integer age);
 
     @Query("SELECT MIN(e.salary) FROM Employee e")
@@ -29,10 +28,10 @@ public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
     @Query("SELECT e FROM Employee e ORDER BY e.salary DESC LIMIT 5")
     List<Employee> findTop5BySalaryOrderBySalaryDesc();
 
-    @Query("SELECT e FROM Employee e WHERE FUNCTION('DATEDIFF', YEAR, e.hire_date, CURRENT_DATE) >= :years")
+    @Query("SELECT e FROM Employee e WHERE FUNCTION('DATEDIFF', YEAR, e.hireDate, CURRENT_DATE) >= :years")
     List<Employee> findEmployeesWorkingForGivenAmountOfYearsOrMore(Integer years);
 
-    @Query("DELETE FROM Employee e WHERE FUNCTION('DATEDIFF', YEAR, e.birth_date, CURRENT_DATE) > :age")
+    @Query("DELETE FROM Employee e WHERE FUNCTION('DATEDIFF', YEAR, e.birthDate, CURRENT_DATE) > :age")
     @Modifying
     void deleteEmployeesOlderThan(Integer age);
 }

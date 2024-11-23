@@ -57,7 +57,7 @@ public class I18NUtil {
     }
 
     public static String localize(final String key, final Object... args) {
-        ResourceBundle resourceBundle = ResourceBundle.getBundle("text", getLocale());
+        ResourceBundle resourceBundle = ResourceBundle.getBundle("ru.dev1art.ems.lang.text", getLocale());
         return MessageFormat.format(resourceBundle.getString(key), args);
     }
 }

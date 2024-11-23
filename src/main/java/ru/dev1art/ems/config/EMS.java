@@ -2,6 +2,7 @@ package ru.dev1art.ems.config;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import org.springframework.boot.SpringApplication;
@@ -10,6 +11,7 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import ru.dev1art.ems.controllers.MainController;
 
 /**
  * @author Dev1Art
@@ -36,11 +38,16 @@ public class EMS extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         SpringFXMLLoader loader = configurableApplicationContext.getBean(SpringFXMLLoader.class);
-        Scene scene = new Scene(loader.load("/ru/dev1art/ems/EmployeeController.fxml"), 700, 400);
-        scene.getStylesheets().add(EMS.class.getResource("/ru/dev1art/ems/style.css").toExternalForm());
+        Scene scene = new Scene(loader.load("/ru/dev1art/ems/MainController.fxml"), 700, 400);
+        scene.getStylesheets().add(EMS.class.getResource("/ru/dev1art/ems/styles/mainFxmlStyle.css").toExternalForm());
+        scene.setFill(Color.TRANSPARENT);
+
+        MainController mainController = configurableApplicationContext.getBean(MainController.class);
+        mainController.setMainStage(stage);
+
         stage.setResizable(false);
-        stage.initStyle(StageStyle.UNDECORATED);
-        stage.setTitle("Hello!");
+        stage.initStyle(StageStyle.TRANSPARENT);
+        stage.setTitle("EMS");
         stage.setScene(scene);
         stage.show();
     }

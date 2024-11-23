@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="360.0" prefWidth="150.0" styleClass="gradient-background" stylesheets="@styles/popupFxmlStyle.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.dev1art.ems.controllers.MainController">
+   <VBox prefHeight="360.0" prefWidth="137.0" styleClass="container" stylesheets="@styles/popupFxmlStyle.css">
+      <opaqueInsets>
+         <Insets />
+      </opaqueInsets>
+      <padding>
+         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+      </padding>
+      <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="28.0" prefWidth="140.0">
+         <VBox.margin>
+            <Insets bottom="10.0" />
+         </VBox.margin>
+         <Label fx:id="popUpTitle" alignment="CENTER" contentDisplay="CENTER" prefHeight="28.0" prefWidth="139.0" text="CHANGE FORM" textAlignment="CENTER" textFill="WHITE">
+            <font>
+               <Font name="Arial Black" size="13.0" />
+            </font>
+         </Label>
+      </HBox>
+      <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="45.0" prefWidth="140.0">
+         <Label fx:id="lastNameLabel" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="140.0" text="Last Name" textAlignment="CENTER" textFill="WHITE">
+            <font>
+               <Font name="Arial Black" size="11.0" />
+            </font>
+         </Label>
+         <TextField fx:id="lastNameField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="140.0" />
+      </VBox>
+      <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="45.0" prefWidth="140.0">
+         <Label fx:id="positionLabel" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="140.0" text="Position" textAlignment="CENTER" textFill="WHITE">
+            <font>
+               <Font name="Arial Black" size="11.0" />
+            </font>
+         </Label>
+         <TextField fx:id="positionField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="140.0" />
+      </VBox>
+      <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="45.0" prefWidth="140.0">
+         <Label fx:id="birthDateLabel" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="140.0" text="Birth Date" textAlignment="CENTER" textFill="WHITE">
+            <font>
+               <Font name="Arial Black" size="11.0" />
+            </font>
+         </Label>
+         <TextField fx:id="birthDateField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="140.0" promptText="YYYY-MM-DD" />
+      </VBox>
+      <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="45.0" prefWidth="140.0">
+         <Label fx:id="hireDateLabel" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="140.0" text="Hire Date " textAlignment="CENTER" textFill="WHITE">
+            <font>
+               <Font name="Arial Black" size="11.0" />
+            </font>
+         </Label>
+         <TextField fx:id="hireDateField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="140.0" promptText="YYYY-MM-DD" />
+      </VBox>
+      <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="45.0" prefWidth="140.0">
+         <Label fx:id="departmentNumberLabel" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="140.0" text="Department Number" textAlignment="CENTER" textFill="WHITE">
+            <font>
+               <Font name="Arial Black" size="11.0" />
+            </font>
+         </Label>
+         <TextField fx:id="departmentNumberField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="140.0" />
+      </VBox>
+      <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="45.0" prefWidth="140.0">
+         <Label fx:id="salaryLabel" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="140.0" text="Salary" textAlignment="CENTER" textFill="WHITE">
+            <font>
+               <Font name="Arial Black" size="11.0" />
+            </font>
+         </Label>
+         <TextField fx:id="salaryField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="140.0" />
+      </VBox>
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+         <Button fx:id="submitButton" alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="33.0" prefWidth="140.0" stylesheets="@styles/popupFxmlStyle.css" text="Submit" textFill="WHITE">
+            <HBox.margin>
+               <Insets />
+            </HBox.margin>
+            <font>
+               <Font name="Arial Black" size="12.0" />
+            </font>
+         </Button>
+      </HBox>
+   </VBox>
+</Pane>
