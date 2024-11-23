@@ -16,7 +16,7 @@
         <javafx-version>17.0.13</javafx-version>
         <spring-boot-version>3.3.5</spring-boot-version>
         <lombok-version>1.18.34</lombok-version>
-        <postgresql-version>42.7.4</postgresql-version>
+        <postgresql-version>42.6.2</postgresql-version>
         <flyway-version>10.21.0</flyway-version>
         <shade-plugin-version>3.2.4</shade-plugin-version>
     </properties>
