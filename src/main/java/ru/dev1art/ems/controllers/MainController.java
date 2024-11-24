@@ -11,7 +11,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -26,12 +25,12 @@ import ru.dev1art.ems.config.SpringFXMLLoader;
 import ru.dev1art.ems.domain.dto.EmployeeDTO;
 import ru.dev1art.ems.services.EmployeeService;
 import ru.dev1art.ems.util.lang.I18NUtil;
-import ru.dev1art.ems.util.lang.LocalizationManager;
+
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.net.URL;
 import java.time.LocalDate;
-import java.util.Locale;
+import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
@@ -74,7 +73,6 @@ public class MainController implements Initializable {
     private Button languageChangerButton;
     @FXML
     private Button exitButton;
-
     @Setter
     private Stage mainStage;
     @Autowired
@@ -84,6 +82,7 @@ public class MainController implements Initializable {
     @Autowired
     private SpringFXMLLoader springFXMLLoader;
     private PopUpController popUpController;
+    private MenuController menuController;
     private boolean isEnglishLocale = true;
 
     @Override
@@ -98,30 +97,37 @@ public class MainController implements Initializable {
             EmployeeDTO employeeDTO = cellData.getValue();
             return new SimpleObjectProperty<>(employeeDTO.id());
         });
+        idColumn.setSortable(true);
         lastNameColumn.setCellValueFactory(cellData -> {
             EmployeeDTO employeeDTO = cellData.getValue();
             return new SimpleObjectProperty<>(employeeDTO.lastName());
         });
+        lastNameColumn.setSortable(true);
         positionColumn.setCellValueFactory(cellData -> {
             EmployeeDTO employeeDTO = cellData.getValue();
             return new SimpleObjectProperty<>(employeeDTO.position());
         });
+        positionColumn.setSortable(true);
         birthDateColumn.setCellValueFactory(cellData -> {
             EmployeeDTO employeeDTO = cellData.getValue();
             return new SimpleObjectProperty<>(employeeDTO.birthDate());
         });
+        birthDateColumn.setSortable(true);
         hireDateColumn.setCellValueFactory(cellData -> {
             EmployeeDTO employeeDTO = cellData.getValue();
             return new SimpleObjectProperty<>(employeeDTO.hireDate());
         });
+        hireDateColumn.setSortable(true);
         departmentNumberColumn.setCellValueFactory(cellData -> {
             EmployeeDTO employeeDTO = cellData.getValue();
             return new SimpleObjectProperty<>(employeeDTO.departmentNumber());
         });
+        departmentNumberColumn.setSortable(true);
         salaryColumn.setCellValueFactory(cellData -> {
             EmployeeDTO employeeDTO = cellData.getValue();
             return new SimpleObjectProperty<>(employeeDTO.salary());
         });
+        salaryColumn.setSortable(true);
     }
 
     private void loadEmployeeData() {
@@ -134,11 +140,11 @@ public class MainController implements Initializable {
     }
 
     private void addButtonsActionOnClick() {
-        addEmployeeButton.setOnMouseClicked(action -> setUpPopUpFXML(false));
+        addEmployeeButton.setOnMouseClicked(action -> setUpFormPopUpFXML(false));
 
         updateEmployeeButton.setOnMouseClicked(action -> {
             if (employeeTable.getSelectionModel().getSelectedItems().get(0) != null) {
-                setUpPopUpFXML(true);
+                setUpFormPopUpFXML(true);
             }
         });
 
@@ -166,12 +172,53 @@ public class MainController implements Initializable {
 
         exitButton.setOnMouseClicked(action -> System.exit(0));
 
-        menuButton.setOnMouseClicked(action -> {
-            //TODO
-        });
+        menuButton.setOnMouseClicked(action -> setUpMenuPopUpFXML());
     }
 
-    private void setUpPopUpFXML(boolean isEditingMode) {
+    protected void populateEmployeeTableFromList(List<EmployeeDTO> employees) {
+        employeeTable.getItems().clear();
+        employeeTable.getItems().addAll(employees);
+    }
+
+    private void setUpMenuPopUpFXML() {
+        try {
+            double mainX = mainStage.getX();
+            double mainY = mainStage.getY();
+            FXMLLoader loader = new FXMLLoader();
+            loader.setControllerFactory(applicationContext::getBean);
+            Parent parent = loader.load(Objects.requireNonNull(
+                    getClass().getResourceAsStream("/ru/dev1art/ems/MenuController.fxml")));
+            menuController = loader.getController();
+            menuController.setMainController(this);
+
+            ScaleTransition st = new ScaleTransition(Duration.millis(100), parent);
+            st.setInterpolator(Interpolator.EASE_BOTH);
+            st.setFromX(0);
+            st.setFromY(0);
+            Stage menuStage = new Stage();
+            menuStage.initModality(Modality.NONE);
+            menuStage.initStyle(StageStyle.TRANSPARENT);
+            menuStage.initOwner(mainStage);
+            menuStage.setResizable(false);
+            Scene scene = new Scene(parent, 200, 300);
+            scene.getStylesheets().add(Objects.requireNonNull(
+                    getClass().getResource("/ru/dev1art/ems/styles/menuFxmlStyle.css")).toExternalForm());
+            scene.setFill(Color.TRANSPARENT);
+            menuStage.focusedProperty().addListener((obs, wasFocused, isNowFocused) -> {
+                if (!isNowFocused) {
+                    menuStage.close();
+                }
+            });
+            menuStage.setScene(scene);
+            menuStage.show();
+            menuStage.setX(mainX + 700 + 5);
+            menuStage.setY(mainY);
+        } catch (IOException e) {
+            //TODO
+        }
+    }
+
+    private void setUpFormPopUpFXML(boolean isEditingMode) {
         try {
             double mainX = mainStage.getX();
             double mainY = mainStage.getY();

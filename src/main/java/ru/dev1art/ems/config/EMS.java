@@ -13,6 +13,8 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import ru.dev1art.ems.controllers.MainController;
 
+import java.util.Objects;
+
 /**
  * @author Dev1Art
  * @project EMS
@@ -39,7 +41,8 @@ public class EMS extends Application {
     public void start(Stage stage) throws Exception {
         SpringFXMLLoader loader = configurableApplicationContext.getBean(SpringFXMLLoader.class);
         Scene scene = new Scene(loader.load("/ru/dev1art/ems/MainController.fxml"), 700, 400);
-        scene.getStylesheets().add(EMS.class.getResource("/ru/dev1art/ems/styles/mainFxmlStyle.css").toExternalForm());
+        scene.getStylesheets().add(Objects.requireNonNull(
+                EMS.class.getResource("/ru/dev1art/ems/styles/mainFxmlStyle.css")).toExternalForm());
         scene.setFill(Color.TRANSPARENT);
 
         MainController mainController = configurableApplicationContext.getBean(MainController.class);

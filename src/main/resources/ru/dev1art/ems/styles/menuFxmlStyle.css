@@ -1,0 +1,68 @@
+.gradient-background {
+    -fx-background-color: rgb(137, 135, 230);
+    -fx-background-radius: 10 10 10 10;
+}
+
+.container {
+    -fx-background-color: rgba(255, 255, 255, 0.2);
+    -fx-background-radius: 10;
+}
+
+.combo-box {
+    -fx-background-color: rgba(255, 255, 255, 0.8);
+    -fx-background-radius: 10;
+    -fx-border-color: rgb(137, 135, 230);
+    -fx-border-radius: 10;
+    -fx-border-width: 2;
+    -fx-padding: 5 10;
+}
+
+.combo-box .list-view {
+    -fx-background-color: rgba(255, 255, 255, 0.9);
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+}
+
+.combo-box .list-view .list-cell {
+    -fx-background-color: transparent;
+    -fx-text-fill: rgb(0, 0, 0);
+}
+
+.combo-box .list-view .list-cell:hover {
+    -fx-background-color: rgba(137, 135, 230, 0.2);
+}
+
+.combo-box .list-view .list-cell:selected {
+    -fx-background-color: rgb(137, 135, 230);
+    -fx-text-fill: white;
+}
+
+.combo-box .arrow {
+    -fx-background-color: transparent;
+    -fx-padding: 0 0 0 10;
+}
+
+.combo-box .arrow:hover {
+    -fx-background-color: rgba(137, 135, 230, 0.2);
+}
+
+.button {
+    -fx-background-color: transparent;
+    -fx-border-width: 0;
+}
+
+.button:focus {
+    -fx-background-color: rgba(0, 0, 0, 0.1);
+}
+
+.button:hover {
+    -fx-background-color: rgba(0, 0, 0, 0.1);
+}
+
+.button:pressed {
+    -fx-background-color: rgba(0, 0, 0, 0.2);
+}
+
+.button:active {
+    -fx-background-color: rgba(0, 0, 0, 0.2);
+}
