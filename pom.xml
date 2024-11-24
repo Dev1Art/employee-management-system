@@ -12,62 +12,75 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <start-class>ru.dev1art.ems.config.EMS</start-class>
-        <java-version>17</java-version>
-        <javafx-version>17.0.13</javafx-version>
-        <spring-boot-version>3.3.5</spring-boot-version>
-        <lombok-version>1.18.34</lombok-version>
-        <postgresql-version>42.6.2</postgresql-version>
-        <flyway-version>10.21.0</flyway-version>
-        <shade-plugin-version>3.2.4</shade-plugin-version>
+        <java>17</java>
+        <javafx>17.0.13</javafx>
+        <spring-boot>3.3.5</spring-boot>
+        <lombok>1.18.34</lombok>
+        <postgresql>42.6.2</postgresql>
+        <mapstruct>1.6.3</mapstruct>
     </properties>
-
     <dependencies>
+        <!-- java fx -->
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-controls</artifactId>
-            <version>${javafx-version}</version>
+            <version>${javafx}</version>
         </dependency>
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-fxml</artifactId>
-            <version>${javafx-version}</version>
+            <version>${javafx}</version>
         </dependency>
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-graphics</artifactId>
-            <version>${javafx-version}</version>
+            <version>${javafx}</version>
         </dependency>
+        <!-- spring boot -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter</artifactId>
-            <version>${spring-boot-version}</version>
+            <version>${spring-boot}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
-            <version>${spring-boot-version}</version>
+            <version>${spring-boot}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-validation</artifactId>
-            <version>${spring-boot-version}</version>
+            <version>${spring-boot}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
-            <version>${spring-boot-version}</version>
+            <version>${spring-boot}</version>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>${lombok-version}</version>
-            <scope>provided</scope>
-        </dependency>
+        <!-- db -->
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
-            <version>${postgresql-version}</version>
+            <version>${postgresql}</version>
+        </dependency>
+        <!-- tools -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct</artifactId>
+            <version>${mapstruct}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct-processor</artifactId>
+            <version>${mapstruct}</version>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
     <build>
@@ -77,13 +90,18 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.11.0</version>
                 <configuration>
-                    <source>${java-version}</source>
-                    <target>${java-version}</target>
+                    <source>${java}</source>
+                    <target>${java}</target>
                     <annotationProcessorPaths>
                         <path>
                             <groupId>org.projectlombok</groupId>
                             <artifactId>lombok</artifactId>
-                            <version>${lombok-version}</version>
+                            <version>${lombok}</version>
+                        </path>
+                        <path>
+                            <groupId>org.mapstruct</groupId>
+                            <artifactId>mapstruct-processor</artifactId>
+                            <version>${mapstruct}</version>
                         </path>
                     </annotationProcessorPaths>
                 </configuration>

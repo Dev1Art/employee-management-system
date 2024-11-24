@@ -1,16 +1,22 @@
 package ru.dev1art.ems.services;
 
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
+import lombok.AccessLevel;
+import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
 import org.springframework.stereotype.Service;
-import ru.dev1art.ems.entities.Employee;
+import ru.dev1art.ems.domain.dto.EmployeeDTO;
+import ru.dev1art.ems.domain.mapper.EmployeeMapper;
+import ru.dev1art.ems.domain.model.Employee;
 import ru.dev1art.ems.repos.EmployeeRepository;
-
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.time.Period;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.List;
-import java.util.Optional;
 
 /**
  * @author Dev1Art
@@ -19,48 +25,61 @@ import java.util.Optional;
  */
 @Service
 @Transactional
+@FieldDefaults(level = AccessLevel.PRIVATE)
+@RequiredArgsConstructor
 public class EmployeeService {
-    private final EmployeeRepository employeeRepository;
+    final EmployeeRepository employeeRepository;
+    final EmployeeMapper employeeMapper;
 
-    public EmployeeService(EmployeeRepository employeeRepository) {
-        this.employeeRepository = employeeRepository;
+    public void saveEmployee(EmployeeDTO employeeDTO) {
+        employeeRepository.save(employeeMapper.toEntity(employeeDTO));
     }
 
-    public void saveEmployee(Employee employee) {
-        employeeRepository.save(employee);
-    }
-
-    public Employee findById(Integer id) {
-        Optional<Employee> employee = employeeRepository.findById(id);
-        return employee.get();
+    public EmployeeDTO findById(Integer id) {
+        return employeeRepository
+                .findById(id)
+                .map(employeeMapper::toDto)
+                .orElseThrow(() -> new EntityNotFoundException("Employee with ID " + id + " not found."));
     }
 
     public void deleteEmployee(Integer id) {
         employeeRepository.deleteById(id);
     }
 
-    public List<Employee> getAllEmployees() {
-        return employeeRepository.findAll();
+    public List<EmployeeDTO> getAllEmployees() {
+        return employeeRepository
+                .findAll()
+                .stream()
+                .map(employeeMapper::toDto)
+                .toList();
     }
 
-    public int getAgeAtHire(Employee employee) {
-        return Period.between(employee.getBirthDate(), employee.getHireDate()).getYears();
+    public int getAgeAtHire(EmployeeDTO employeeDTO) {
+            return Period.between(employeeDTO.birthDate(), employeeDTO.hireDate()).getYears();
     }
 
     public int getCurrentAge(Employee employee) {
         return Period.between(employee.getBirthDate(), LocalDate.now()).getYears();
     }
 
-    public List<Employee> getEmployeesInDepartmentYoungerThan(Integer deptNo, Integer age) {
-        return employeeRepository.findEmployeesInDepartmentYoungerThan(deptNo, age);
+    public List<EmployeeDTO> getEmployeesInDepartmentYoungerThan(Integer deptNo, Integer age) {
+        return employeeRepository
+                .findEmployeesInDepartmentYoungerThan(deptNo, age)
+                .stream()
+                .map(employeeMapper::toDto)
+                .toList();
     }
 
     public BigDecimal getMinimumSalary() {
         return employeeRepository.findMinimumSalary();
     }
 
-    public List<Employee> getTop5BySalary() {
-        return employeeRepository.findTop5BySalaryOrderBySalaryDesc();
+    public List<EmployeeDTO> getTop5BySalary() {
+        return employeeRepository
+                .findTop5BySalaryOrderBySalaryDesc()
+                .stream()
+                .map(employeeMapper::toDto)
+                .toList();
     }
 
     public void increaseSalaryForLongTermEmployees(BigDecimal percentageIncrease, Integer yearsWorked) {
@@ -72,9 +91,43 @@ public class EmployeeService {
             employeeRepository.save(employee);
         }
     }
-
     public void deleteOldEmployees(Integer age) {
         employeeRepository.deleteEmployeesOlderThan(age);
     }
 
+    public EmployeeDTO mergeDTOs(
+            EmployeeDTO originalEmployee, EmployeeDTO updatedEmployee) {
+        return EmployeeDTO
+                .builder()
+                .id(originalEmployee.id())
+                .lastName(updatedEmployee.lastName())
+                .position(updatedEmployee.position())
+                .birthDate(updatedEmployee.birthDate())
+                .hireDate(updatedEmployee.hireDate())
+                .departmentNumber(updatedEmployee.departmentNumber())
+                .salary(updatedEmployee.salary())
+                .build();
+    }
+    public EmployeeDTO fromTextToDTO(
+            String lastName, String position, String birthDate,
+            String hireDate, String depNumber, String salary
+    ) {
+        EmployeeDTO employeeDTO = null;
+        try {
+            employeeDTO = EmployeeDTO
+                    .builder()
+                    .lastName(lastName)
+                    .position(position)
+                    .birthDate(LocalDate.parse(birthDate, DateTimeFormatter.ofPattern("yyyy-MM-dd")))
+                    .hireDate(LocalDate.parse(hireDate, DateTimeFormatter.ofPattern("yyyy-MM-dd")))
+                    .departmentNumber(Integer.parseInt(depNumber))
+                    .salary(new BigDecimal(salary))
+                    .build();
+
+        } catch (NumberFormatException | DateTimeParseException exception) {
+            //TODO
+        }
+
+        return employeeDTO;
+    }
 }

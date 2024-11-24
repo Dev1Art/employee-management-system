@@ -4,7 +4,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
-import ru.dev1art.ems.entities.Employee;
+import ru.dev1art.ems.domain.model.Employee;
 
 import java.math.BigDecimal;
 import java.util.List;

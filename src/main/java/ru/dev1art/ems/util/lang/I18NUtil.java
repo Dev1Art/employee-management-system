@@ -1,4 +1,4 @@
-package ru.dev1art.ems.util;
+package ru.dev1art.ems.util.lang;
 
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.StringBinding;
