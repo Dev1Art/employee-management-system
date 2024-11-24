@@ -16,6 +16,7 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -54,12 +55,12 @@ public class EmployeeService {
                 .toList();
     }
 
-    public int getAgeAtHire(EmployeeDTO employeeDTO) {
+    public Integer getAgeAtHire(EmployeeDTO employeeDTO) {
             return Period.between(employeeDTO.birthDate(), employeeDTO.hireDate()).getYears();
     }
 
-    public int getCurrentAge(Employee employee) {
-        return Period.between(employee.getBirthDate(), LocalDate.now()).getYears();
+    public Integer getCurrentAge(EmployeeDTO employeeDTO) {
+        return Period.between(employeeDTO.birthDate(), LocalDate.now()).getYears();
     }
 
     public List<EmployeeDTO> getEmployeesInDepartmentYoungerThan(Integer deptNo, Integer age) {
@@ -70,19 +71,34 @@ public class EmployeeService {
                 .toList();
     }
 
-    public BigDecimal getMinimumSalary() {
-        return employeeRepository.findMinimumSalary();
-    }
-
-    public List<EmployeeDTO> getTop5BySalary() {
+    public List<EmployeeDTO> getEmployeesWithMinSalary() {
         return employeeRepository
-                .findTop5BySalaryOrderBySalaryDesc()
+                .findTop5BySalaryAsc()
                 .stream()
                 .map(employeeMapper::toDto)
                 .toList();
     }
 
-    public void increaseSalaryForLongTermEmployees(BigDecimal percentageIncrease, Integer yearsWorked) {
+    public List<EmployeeDTO> getEmployeesWithMaxSalary() {
+        return employeeRepository
+                .findTop5BySalaryDesc()
+                .stream()
+                .map(employeeMapper::toDto)
+                .toList();
+    }
+
+    public List<EmployeeDTO> getLongTermEmployees(Integer yearsWorked) {
+        return employeeRepository
+                .findEmployeesWorkingForGivenAmountOfYearsOrMore(yearsWorked)
+                .stream()
+                .map(employeeMapper::toDto)
+                .toList();
+    }
+
+    public List<EmployeeDTO> increaseSalaryForLongTermEmployees(BigDecimal percentageIncrease, Integer yearsWorked) {
+        if (percentageIncrease == null || yearsWorked == null) {
+            throw new IllegalArgumentException("Percentage increase and years worked must not be null");
+        }
         List<Employee> eligibleEmployees = employeeRepository.findEmployeesWorkingForGivenAmountOfYearsOrMore(yearsWorked);
         for (Employee employee : eligibleEmployees) {
             BigDecimal newSalary = employee.getSalary()
@@ -90,9 +106,17 @@ public class EmployeeService {
             employee.setSalary(newSalary);
             employeeRepository.save(employee);
         }
+        return eligibleEmployees
+                .stream()
+                .map(employeeMapper::toDto)
+                .toList();
     }
-    public void deleteOldEmployees(Integer age) {
-        employeeRepository.deleteEmployeesOlderThan(age);
+    public List<EmployeeDTO> findOldEmployees(Integer age) {
+        return employeeRepository
+                .findEmployeesOlderThan(age)
+                .stream()
+                .map(employeeMapper::toDto)
+                .toList();
     }
 
     public EmployeeDTO mergeDTOs(

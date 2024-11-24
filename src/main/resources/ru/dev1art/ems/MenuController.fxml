@@ -1,6 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="369.0" prefWidth="194.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" />
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="200.0" styleClass="gradient-background" stylesheets="/ru/dev1art/ems/styles/menuFxmlStyle.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.dev1art.ems.controllers.MenuController">
+   <VBox prefHeight="300.0" prefWidth="200.0" styleClass="container" stylesheets="/ru/dev1art/ems/styles/menuFxmlStyle.css">
+      <Label fx:id="menuLabel" alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="200.0" text="Shortcuts" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font name="Arial Black" size="13.0" />
+         </font>
+      </Label>
+      <TextField fx:id="valueField" alignment="CENTER" prefHeight="34.0" prefWidth="200.0">
+         <VBox.margin>
+            <Insets top="10.0" />
+         </VBox.margin>
+      </TextField>
+      <Button fx:id="findButton" alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="35.0" prefWidth="200.0" stylesheets="/ru/dev1art/ems/styles/menuFxmlStyle.css" text="Button" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font name="Arial Black" size="13.0" />
+         </font>
+         <VBox.margin>
+            <Insets bottom="5.0" top="5.0" />
+         </VBox.margin>
+      </Button>
+      <ComboBox fx:id="shortcutsComboBox" prefHeight="30.0" prefWidth="200.0" promptText="AVAILABLE SHORTCUTS..." styleClass="combo-box" stylesheets="/ru/dev1art/ems/styles/menuFxmlStyle.css" />
+   </VBox>
+</Pane>
