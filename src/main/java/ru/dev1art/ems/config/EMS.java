@@ -21,7 +21,7 @@ import ru.dev1art.ems.controllers.MainController;
 
 @SpringBootApplication
 @ComponentScan(basePackages = "ru.dev1art.ems")
-@EntityScan(basePackages = "ru.dev1art.ems.entities")
+@EntityScan(basePackages = "ru.dev1art.ems.domain.model")
 @EnableJpaRepositories(basePackages = "ru.dev1art.ems.repos")
 public class EMS extends Application {
     private ConfigurableApplicationContext configurableApplicationContext;

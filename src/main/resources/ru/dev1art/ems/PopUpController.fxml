@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="360.0" prefWidth="150.0" styleClass="gradient-background" stylesheets="@styles/popupFxmlStyle.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.dev1art.ems.controllers.MainController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="360.0" prefWidth="150.0" styleClass="gradient-background" stylesheets="@styles/popupFxmlStyle.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.dev1art.ems.controllers.PopUpController">
    <VBox prefHeight="360.0" prefWidth="137.0" styleClass="container" stylesheets="@styles/popupFxmlStyle.css">
       <opaqueInsets>
          <Insets />
