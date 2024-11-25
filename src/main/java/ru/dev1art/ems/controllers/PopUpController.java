@@ -5,7 +5,10 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.Setter;
+import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Marker;
 import org.slf4j.MarkerFactory;
@@ -28,46 +31,29 @@ import java.util.ResourceBundle;
 
 @Slf4j
 @Component
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class PopUpController implements Initializable, LocaleChangeListener {
-    @FXML
-    private Label popUpTitle;
-    @FXML
-    private Button submitButton;
-    @FXML
-    private TextField lastNameField;
-    @FXML
-    private Label lastNameLabel;
-    @FXML
-    private TextField positionField;
-    @FXML
-    private Label positionLabel;
-    @FXML
-    private TextField birthDateField;
-    @FXML
-    private Label birthDateLabel;
-    @FXML
-    private TextField hireDateField;
-    @FXML
-    private Label hireDateLabel;
-    @FXML
-    private TextField departmentNumberField;
-    @FXML
-    private Label departmentNumberLabel;
-    @FXML
-    private TextField salaryField;
-    @FXML
-    private Label salaryLabel;
-    @Autowired
-    private EmployeeService employeeService;
-    @Setter
-    private MainController mainController;
-    @Setter
-    private EmployeeDTO employeeToUpdate;
-    @Setter
-    private boolean isEditingMode;
-    private static final Marker UI_MARKER = MarkerFactory.getMarker("UI");
-    private static final Marker DATA_MARKER = MarkerFactory.getMarker("DATA");
-    private static final Marker SERVICE_MARKER = MarkerFactory.getMarker("SERVICE");
+    @FXML @Getter @Setter Label popUpTitle;
+    @FXML @Getter @Setter Button submitButton;
+    @FXML @Getter @Setter TextField lastNameField;
+    @FXML @Getter @Setter Label lastNameLabel;
+    @FXML @Getter @Setter TextField positionField;
+    @FXML @Getter @Setter Label positionLabel;
+    @FXML @Getter @Setter TextField birthDateField;
+    @FXML @Getter @Setter Label birthDateLabel;
+    @FXML @Getter @Setter TextField hireDateField;
+    @FXML @Getter @Setter Label hireDateLabel;
+    @FXML @Getter @Setter TextField departmentNumberField;
+    @FXML @Getter @Setter Label departmentNumberLabel;
+    @FXML @Getter @Setter TextField salaryField;
+    @FXML @Getter @Setter Label salaryLabel;
+    @Autowired @Setter EmployeeService employeeService;
+    @Setter @Getter MainController mainController;
+    @Setter @Getter EmployeeDTO employeeToUpdate;
+    @Setter boolean isEditingMode;
+    static final Marker UI_MARKER = MarkerFactory.getMarker("UI");
+    static final Marker DATA_MARKER = MarkerFactory.getMarker("DATA");
+    static final Marker SERVICE_MARKER = MarkerFactory.getMarker("SERVICE");
 
     /**
      * Initializes the PopUpController. This method is called after the FXML

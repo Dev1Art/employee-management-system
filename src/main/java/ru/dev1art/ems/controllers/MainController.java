@@ -18,8 +18,11 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
+import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Marker;
 import org.slf4j.MarkerFactory;
@@ -46,51 +49,33 @@ import java.util.ResourceBundle;
 
 @Slf4j
 @Component
+@FieldDefaults(level = AccessLevel.PRIVATE)
 @NoArgsConstructor
 public class MainController implements Initializable {
-    @FXML
-    private TableView<EmployeeDTO> employeeTable;
-    @FXML
-    private TableColumn<EmployeeDTO, Integer> idColumn;
-    @FXML
-    private TableColumn<EmployeeDTO, String> lastNameColumn;
-    @FXML
-    private TableColumn<EmployeeDTO, String> positionColumn;
-    @FXML
-    private TableColumn<EmployeeDTO, LocalDate> birthDateColumn;
-    @FXML
-    private TableColumn<EmployeeDTO, LocalDate> hireDateColumn;
-    @FXML
-    private TableColumn<EmployeeDTO, Integer> departmentNumberColumn;
-    @FXML
-    private TableColumn<EmployeeDTO, BigDecimal> salaryColumn;
-    @FXML
-    private Button menuButton;
-    @FXML
-    private Button addEmployeeButton;
-    @FXML
-    private Button updateEmployeeButton;
-    @FXML
-    private Button deleteEmployeeButton;
-    @FXML
-    private Button refreshTableButton;
-    @FXML
-    private Button languageChangerButton;
-    @FXML
-    private Button exitButton;
-    @Setter
-    private Stage mainStage;
-    @Autowired
-    private EmployeeService employeeService;
-    @Autowired
-    private ApplicationContext applicationContext;
-    @Autowired
-    private SpringFXMLLoader springFXMLLoader;
-    private PopUpController popUpController;
-    private MenuController menuController;
-    private boolean isEnglishLocale = true;
-    private static final Marker UI_MARKER = MarkerFactory.getMarker("UI");
-    private static final Marker DATA_MARKER = MarkerFactory.getMarker("DATA");
+    @FXML @Getter @Setter TableView<EmployeeDTO> employeeTable;
+    @FXML TableColumn<EmployeeDTO, Integer> idColumn;
+    @FXML TableColumn<EmployeeDTO, String> lastNameColumn;
+    @FXML TableColumn<EmployeeDTO, String> positionColumn;
+    @FXML TableColumn<EmployeeDTO, LocalDate> birthDateColumn;
+    @FXML TableColumn<EmployeeDTO, LocalDate> hireDateColumn;
+    @FXML TableColumn<EmployeeDTO, Integer> departmentNumberColumn;
+    @FXML TableColumn<EmployeeDTO, BigDecimal> salaryColumn;
+    @FXML @Getter Button menuButton;
+    @FXML @Setter @Getter Button addEmployeeButton;
+    @FXML @Setter @Getter Button updateEmployeeButton;
+    @FXML @Setter @Getter Button deleteEmployeeButton;
+    @FXML @Setter @Getter Button refreshTableButton;
+    @FXML @Setter @Getter Button languageChangerButton;
+    @FXML @Setter @Getter Button exitButton;
+    @Setter Stage mainStage;
+    @Autowired @Setter EmployeeService employeeService;
+    @Autowired ApplicationContext applicationContext;
+    @Autowired SpringFXMLLoader springFXMLLoader;
+    @Setter PopUpController popUpController;
+    @Setter MenuController menuController;
+    boolean isEnglishLocale = true;
+    static final Marker UI_MARKER = MarkerFactory.getMarker("UI");
+    static final Marker DATA_MARKER = MarkerFactory.getMarker("DATA");
 
     /**
      * Initializes the MainController. This method is called after the FXML
@@ -164,7 +149,7 @@ public class MainController implements Initializable {
      * Loads the employee data from the EmployeeService and populates
      * the table view with the retrieved EmployeeDTO objects.
      */
-    private void loadEmployeeData() {
+    public void loadEmployeeData() {
         log.info(DATA_MARKER, "Loading data to tableview");
         try {
             ObservableList<EmployeeDTO> employees = FXCollections.observableArrayList(employeeService.getAllEmployees());
@@ -189,7 +174,7 @@ public class MainController implements Initializable {
      * defining the behavior for adding, updating, deleting, refreshing
      * the table, changing the language, and exiting the application.
      */
-    private void addButtonsActionOnClick() {
+    protected void addButtonsActionOnClick() {
         log.info(DATA_MARKER, "Setting up actions on click for buttons");
         addEmployeeButton.setOnMouseClicked(action -> setUpFormPopUpFXML(false));
 

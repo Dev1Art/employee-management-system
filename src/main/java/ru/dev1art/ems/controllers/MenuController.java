@@ -7,6 +7,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import lombok.*;
+import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Marker;
 import org.slf4j.MarkerFactory;
@@ -30,24 +31,19 @@ import java.util.regex.Pattern;
  */
 
 @Slf4j
+@FieldDefaults(level = AccessLevel.PRIVATE)
 @Component
 public class MenuController implements Initializable, LocaleChangeListener {
-    @FXML
-    private Label menuLabel;
-    @FXML
-    private ComboBox<String> shortcutsComboBox;
-    @FXML
-    private TextField valueField;
-    @FXML
-    private Button findButton;
-    private final Map<String, ShortcutProperties> shortcutOperations = new HashMap<>();
-    @Setter
-    private MainController mainController;
-    @Autowired
-    private EmployeeService employeeService;
-    private static final Marker UI_MARKER = MarkerFactory.getMarker("UI");
-    private static final Marker DATA_MARKER = MarkerFactory.getMarker("DATA");
-    private static final Marker SERVICE_MARKER = MarkerFactory.getMarker("SERVICE");
+    @FXML @Setter Label menuLabel;
+    @FXML @Setter ComboBox<String> shortcutsComboBox;
+    @FXML @Getter @Setter TextField valueField;
+    @FXML @Getter @Setter Button findButton;
+    final Map<String, ShortcutProperties> shortcutOperations = new HashMap<>();
+    @Getter @Setter MainController mainController;
+    @Autowired EmployeeService employeeService;
+    static final Marker UI_MARKER = MarkerFactory.getMarker("UI");
+    static final Marker DATA_MARKER = MarkerFactory.getMarker("DATA");
+    static final Marker SERVICE_MARKER = MarkerFactory.getMarker("SERVICE");
 
     /**
      * Initializes the MenuController. This method is called after the FXML
@@ -182,7 +178,7 @@ public class MenuController implements Initializable, LocaleChangeListener {
     /**
      * Finds employees in a specified department who are younger than a given age.
      */
-    private void findYounger() {
+    protected void findYounger() {
         log.debug(SERVICE_MARKER, "Finding employees in department younger than entered value");
         Pattern pattern = Pattern.compile("(\\d+):(\\d+)");
         Matcher matcher = pattern.matcher(valueField.getText());
@@ -206,7 +202,7 @@ public class MenuController implements Initializable, LocaleChangeListener {
     /**
      * Finds and displays employees with the minimum salary.
      */
-    private void findMinSalary() {
+    protected void findMinSalary() {
         log.debug(SERVICE_MARKER, "Finding employees with minimum salary");
         List<EmployeeDTO> employees = employeeService.getEmployeesWithMinSalary();
         mainController.populateEmployeeTableFromList(employees);
@@ -216,7 +212,7 @@ public class MenuController implements Initializable, LocaleChangeListener {
     /**
      * Finds and displays employees with the highest salary.
      */
-    private void findHighestSalary() {
+    protected void findHighestSalary() {
         log.debug(SERVICE_MARKER, "Finding employees with highest salary");
         List<EmployeeDTO> employees = employeeService.getEmployeesWithMaxSalary();
         mainController.populateEmployeeTableFromList(employees);
@@ -226,7 +222,7 @@ public class MenuController implements Initializable, LocaleChangeListener {
     /**
      * Finds employees who have been working for a specified number of years.
      */
-    private void findWorkingSince() {
+    protected void findWorkingSince() {
         log.debug(SERVICE_MARKER, "Finding long-term employees");
         Pattern pattern = Pattern.compile("(\\d+)");
         Matcher matcher = pattern.matcher(valueField.getText());
@@ -251,7 +247,7 @@ public class MenuController implements Initializable, LocaleChangeListener {
     /**
      * Finds and displays employees older than a specified age.
      */
-    private void findOlderThan() {
+    protected void findOlderThan() {
         log.debug(SERVICE_MARKER, "Finding employees older than a specified age");
         Pattern pattern = Pattern.compile("(\\d+)");
         Matcher matcher = pattern.matcher(valueField.getText());
@@ -276,7 +272,7 @@ public class MenuController implements Initializable, LocaleChangeListener {
     /**
      * Gets and displays the current age of an employee based on their ID.
      */
-    private void getAgeOfEmployee() {
+    protected void getAgeOfEmployee() {
         log.debug(SERVICE_MARKER, "Getting current age of employee");
         try {
             Integer employeeID = Integer.parseInt(valueField.getText());
@@ -301,7 +297,7 @@ public class MenuController implements Initializable, LocaleChangeListener {
     /**
      * Gets and displays the age of an employee at the time of hire based on their ID.
      */
-    private void getAgeOfEmployeeWhenHired() {
+    protected void getAgeOfEmployeeWhenHired() {
         log.debug(SERVICE_MARKER, "Getting age of employee at hire date");
         try {
             Integer employeeID = Integer.parseInt(valueField.getText());
@@ -326,7 +322,7 @@ public class MenuController implements Initializable, LocaleChangeListener {
      * Increases the salary of long-term employees based on a specified
      * percentage increase and number of years.
      */
-    private void increaseSalaryForLongTermEmployees() {
+    protected void increaseSalaryForLongTermEmployees() {
         log.debug(SERVICE_MARKER, "Increasing salary for long-term employees");
         Pattern pattern = Pattern.compile("(\\d+):(\\d+)");
         Matcher matcher = pattern.matcher(valueField.getText());
