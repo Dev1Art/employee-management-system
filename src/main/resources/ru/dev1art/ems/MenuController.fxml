@@ -25,9 +25,9 @@
             <Insets bottom="5.0" top="10.0" />
          </VBox.margin>
       </Button>
-      <ComboBox fx:id="shortcutsComboBox" prefHeight="36.0" prefWidth="200.0" promptText="AVAILABLE SHORTCUTS..." styleClass="combo-box" stylesheets="/ru/dev1art/ems/styles/menuFxmlStyle.css">
+      <ComboBox fx:id="shortcutsComboBox" prefHeight="34.0" prefWidth="183.0" promptText="AVAILABLE SHORTCUTS..." styleClass="combo-box" stylesheets="/ru/dev1art/ems/styles/menuFxmlStyle.css">
          <VBox.margin>
-            <Insets top="10.0" />
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
          </VBox.margin></ComboBox>
    </VBox>
 </Pane>

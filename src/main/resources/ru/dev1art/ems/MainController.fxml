@@ -9,7 +9,7 @@
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="700.0" styleClass="gradient-background" stylesheets="@styles/mainFxmlStyle.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.dev1art.ems.controllers.MainController">
    <top>
       <HBox prefHeight="41.0" prefWidth="600.0" BorderPane.alignment="BOTTOM_LEFT">
-         <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="42.0" prefWidth="92.0" text="EMS" textAlignment="CENTER" textFill="WHITE">
+         <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="42.0" prefWidth="92.0" text="EMS" textAlignment="CENTER" textFill="#bfefff">
             <font>
                <Font name="Arial Black" size="20.0" />
             </font>

@@ -1,11 +1,11 @@
 .gradient-background {
-    -fx-background-color: rgb(137, 135, 230);
+    -fx-background-color: rgb(137, 81, 41);
     -fx-background-radius: 10 10 10 10;
 }
 
 .modal-dialog-glass {
-  -fx-effect: dropshadow(three-pass-box, derive(cadetblue, -20%), 10, 0, 4, 4);
-  -fx-background-color: derive(cadetblue, -20%);
+  -fx-effect: dropshadow(three-pass-box, derive(rgb(137, 81, 41), -20%), 10, 0, 4, 4);
+  -fx-background-color: derive(rgb(137, 81, 41), -20%);
   -fx-background-insets: 12;
   -fx-background-radius: 6;
 }
@@ -15,8 +15,8 @@
   -fx-spacing: 10;
   -fx-alignment: center;
   -fx-font-size: 20;
-  -fx-background-color: linear-gradient(to bottom, derive(cadetblue, 20%), cadetblue);
-  -fx-border-color: derive(cadetblue, -20%);
+  -fx-background-color: linear-gradient(to bottom, derive(rgb(137, 81, 41), 20%), rgb(137, 81, 41));
+  -fx-border-color: derive(rgb(137, 81, 41), -20%);
   -fx-border-width: 5;
   -fx-background-insets: 12;
   -fx-border-insets: 10;
@@ -45,20 +45,19 @@
     -fx-padding: 5px 0;
 }
 
-
-.table-view{
+.table-view {
    -fx-background-color: transparent;
 }
 
-.table-view:focused{
+.table-view:focused {
     -fx-background-color: transparent;
 }
 
-.table-view .column-header-background{
+.table-view .column-header-background {
     -fx-background-color: rgba(230, 230, 230 , 0.2);
 }
 
-.table-view .column-header-background .label{
+.table-view .column-header-background .label {
     -fx-background-color: transparent;
     -fx-text-fill: white;
 }
@@ -67,26 +66,28 @@
     -fx-background-color: transparent;
 }
 
-.table-view .table-cell{
+.table-view .table-cell {
     -fx-text-fill: white;
+    -fx-alignment: CENTER
 }
 
-.table-row-cell{
-    -fx-background-color: -fx-table-cell-border-color, rgba(122, 121, 182, 0.8);
+.table-row-cell {
+    -fx-background-color: -fx-table-cell-border-color, rgba(137, 81, 41, 0.8);
     -fx-background-insets: 0, 0 0 1 0;
     -fx-padding: 0.0em;
 }
 
-.table-row-cell:odd{
-    -fx-background-color: -fx-table-cell-border-color, rgba(144, 143, 210, 0.8);
+.table-row-cell:odd {
+    -fx-background-color: -fx-table-cell-border-color, rgba(160, 95, 48, 0.8);
     -fx-background-insets: 0, 0 0 1 0;
     -fx-padding: 0.0em;
 }
 
 .table-row-cell:selected {
-    -fx-background-color: #1a3046;
+    -fx-background-color: rgb(110, 65, 33);
     -fx-background-insets: 0;
     -fx-background-radius: 1;
+    -fx-text-fill: white;
 }
 
 .table-view > .virtual-flow > .scroll-bar:vertical,
@@ -123,4 +124,3 @@
 .button:active {
     -fx-background-color: rgba(0, 0, 0, 0.2);
 }
-

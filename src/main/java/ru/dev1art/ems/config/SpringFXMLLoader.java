@@ -11,6 +11,10 @@ import java.io.IOException;
 import java.net.URL;
 
 /**
+ * Utility class for loading FXML files in a Spring context.
+ * This class integrates JavaFX's FXMLLoader with Spring's ApplicationContext
+ * to allow for dependency injection of controllers defined in FXML files.
+ *
  * @author Dev1Art
  * @project EMS
  * @date 10.11.2024
@@ -23,6 +27,16 @@ public class SpringFXMLLoader {
     @Autowired
     private ApplicationContext applicationContext;
 
+    /**
+     * Loads an FXML file and returns the corresponding controller instance.
+     * This method uses the FXMLLoader to load the FXML resource and sets the controller factory
+     * to retrieve beans from the Spring application context.
+     *
+     * @param fxml The path to the FXML file to be loaded.
+     * @param <T>  The type of the controller that will be loaded from the FXML.
+     * @return An instance of the controller defined in the FXML file.
+     * @throws IOException if there is an error loading the FXML file or the resource is not found.
+     */
     public <T> T load(String fxml) throws IOException {
         log.debug(UI_MARKER, "Loading FXML: {}", fxml);
 
