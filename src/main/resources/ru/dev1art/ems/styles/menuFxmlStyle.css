@@ -1,5 +1,5 @@
 .gradient-background {
-    -fx-background-color: rgb(137, 135, 230);
+    -fx-background-color: rgb(137, 81, 41);
     -fx-background-radius: 10 10 10 10;
 }
 
@@ -11,7 +11,7 @@
 .combo-box {
     -fx-background-color: rgba(255, 255, 255, 0.8);
     -fx-background-radius: 10 10 10 10;
-    -fx-border-color: rgb(137, 135, 230);
+    -fx-border-color: rgb(137, 81, 41);
     -fx-border-radius: 10 10 10 10;
     -fx-border-width: 2;
     -fx-padding: 5 10;
@@ -29,11 +29,11 @@
 }
 
 .combo-box .list-view .list-cell:hover {
-    -fx-background-color: rgba(137, 135, 230, 0.2);
+    -fx-background-color: rgba(137, 81, 41, 0.2);
 }
 
 .combo-box .list-view .list-cell:selected {
-    -fx-background-color: rgb(137, 135, 230);
+    -fx-background-color: rgb(137, 81, 41);
     -fx-text-fill: white;
 }
 
@@ -43,7 +43,7 @@
 }
 
 .combo-box .arrow:hover {
-    -fx-background-color: rgba(137, 135, 230, 0.2);
+    -fx-background-color: rgba(137, 81, 41, 0.2);
 }
 
 .button {

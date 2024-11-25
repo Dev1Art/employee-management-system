@@ -19,6 +19,10 @@ import ru.dev1art.ems.controllers.MainController;
 import java.util.Objects;
 
 /**
+ * Main entry point for the EMS application.
+ * This class extends the JavaFX Application class and integrates Spring Boot to manage the application context.
+ * It handles the initialization of the Spring context, the setup of the JavaFX UI, and application lifecycle events.
+ *
  * @author Dev1Art
  * @project EMS
  * @date 09.11.2024
@@ -33,21 +37,39 @@ public class EMS extends Application {
 
     private static final Marker UI_MARKER = MarkerFactory.getMarker("UI");
     private static final Marker APPLICATION_MARKER = MarkerFactory.getMarker("APPLICATION");
-
-
     private ConfigurableApplicationContext configurableApplicationContext;
 
+    /**
+     * Main method that serves as the entry point of the application.
+     * It initializes the application and launches the JavaFX application.
+     *
+     * @param args Command-line arguments passed to the application.
+     */
     public static void main(String[] args) {
         log.info(APPLICATION_MARKER, "Starting EMS application");
         Application.launch(args);
     }
 
+    /**
+     * Initializes the Spring application context before the JavaFX application starts.
+     * This method is called by the JavaFX framework during the application lifecycle.
+     *
+     * @throws Exception if any error occurs during the initialization of the Spring context.
+     */
     @Override
     public void init() throws Exception {
         log.info(APPLICATION_MARKER, "Initializing Spring context");
         configurableApplicationContext = SpringApplication.run(EMS.class);
     }
 
+    /**
+     * Starts the JavaFX application and sets up the main stage and scene.
+     * This method is called after the init method and is responsible for loading the FXML layout
+     * and applying styles.
+     *
+     * @param stage The primary stage for this application, onto which the application scene can be set.
+     * @throws Exception if any error occurs during the setup of the UI.
+     */
     @Override
     public void start(Stage stage) throws Exception {
         log.info(UI_MARKER, "Starting UI");
@@ -73,6 +95,12 @@ public class EMS extends Application {
         }
     }
 
+    /**
+     * Stops the JavaFX application and closes the Spring application context.
+     * This method is called when the application is about to exit.
+     *
+     * @throws Exception if any error occurs during the stopping of the application.
+     */
     @Override
     public void stop() throws Exception {
         log.info(APPLICATION_MARKER, "Stopping EMS application");

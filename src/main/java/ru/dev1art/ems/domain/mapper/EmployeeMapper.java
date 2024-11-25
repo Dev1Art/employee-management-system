@@ -15,6 +15,6 @@ import ru.dev1art.ems.domain.model.Employee;
 @Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE,
         componentModel = MappingConstants.ComponentModel.SPRING)
 public interface EmployeeMapper {
-    Employee toEntity(EmployeeDTO employeeDTO);
+    Employee toEntity( EmployeeDTO employeeDTO);
     EmployeeDTO toDto(Employee employee);
 }
