@@ -10,9 +10,9 @@
 
 .combo-box {
     -fx-background-color: rgba(255, 255, 255, 0.8);
-    -fx-background-radius: 10;
+    -fx-background-radius: 10 10 10 10;
     -fx-border-color: rgb(137, 135, 230);
-    -fx-border-radius: 10;
+    -fx-border-radius: 10 10 10 10;
     -fx-border-width: 2;
     -fx-padding: 5 10;
 }

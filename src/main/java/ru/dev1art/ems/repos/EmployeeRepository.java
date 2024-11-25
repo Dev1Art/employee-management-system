@@ -5,8 +5,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import ru.dev1art.ems.domain.model.Employee;
-
-import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -14,10 +12,13 @@ import java.util.List;
  * @project EMS
  * @date 09.11.2024
  */
+
 @Repository
 public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
 
-    // incorporate native SQL within JPQL query using FUNCTION()
+    /**
+     * incorporate native SQL within JPQL query using FUNCTION()
+     */
     @Query("SELECT e FROM Employee e WHERE e.departmentNumber = :deptNo " +
             "AND FUNCTION('DATEDIFF', YEAR, e.birthDate, CURRENT_DATE) < :age")
     List<Employee> findEmployeesInDepartmentYoungerThan(@Param("deptNo") Integer deptNo, @Param("age") Integer age);

@@ -11,6 +11,7 @@ import ru.dev1art.ems.domain.model.Employee;
  * @project EMS
  * @date 24.11.2024
  */
+
 @Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE,
         componentModel = MappingConstants.ComponentModel.SPRING)
 public interface EmployeeMapper {
