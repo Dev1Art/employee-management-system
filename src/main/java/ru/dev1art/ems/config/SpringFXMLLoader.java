@@ -1,6 +1,9 @@
 package ru.dev1art.ems.config;
 
 import javafx.fxml.FXMLLoader;
+import lombok.AccessLevel;
+import lombok.Setter;
+import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Marker;
 import org.slf4j.MarkerFactory;
@@ -22,10 +25,10 @@ import java.net.URL;
 
 @Slf4j
 @Component
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class SpringFXMLLoader {
-    private static final Marker UI_MARKER = MarkerFactory.getMarker("UI");
-    @Autowired
-    private ApplicationContext applicationContext;
+    static final Marker UI_MARKER = MarkerFactory.getMarker("UI");
+    @Autowired @Setter ApplicationContext applicationContext;
 
     /**
      * Loads an FXML file and returns the corresponding controller instance.

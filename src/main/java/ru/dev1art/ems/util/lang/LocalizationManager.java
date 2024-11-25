@@ -1,6 +1,8 @@
 package ru.dev1art.ems.util.lang;
 
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Marker;
 import org.slf4j.MarkerFactory;
@@ -19,12 +21,12 @@ import java.util.Locale;
  */
 
 @Slf4j
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class LocalizationManager {
-    private static final Marker I18N_MARKER = MarkerFactory.getMarker("I18N");
-    private static LocalizationManager instance;
-    @Getter
-    private Locale currentLocale;
-    private final List<LocaleChangeListener> listeners = new ArrayList<>();
+    static final Marker I18N_MARKER = MarkerFactory.getMarker("I18N");
+    static LocalizationManager instance;
+    @Getter Locale currentLocale;
+    @Getter final List<LocaleChangeListener> listeners = new ArrayList<>();
 
     /**
      * Private constructor to prevent instantiation from outside the class.

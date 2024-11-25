@@ -5,6 +5,8 @@ import javafx.scene.Scene;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import lombok.AccessLevel;
+import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Marker;
 import org.slf4j.MarkerFactory;
@@ -33,11 +35,12 @@ import java.util.Objects;
 @ComponentScan(basePackages = "ru.dev1art.ems")
 @EntityScan(basePackages = "ru.dev1art.ems.domain.model")
 @EnableJpaRepositories(basePackages = "ru.dev1art.ems.repos")
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class EMS extends Application {
 
-    private static final Marker UI_MARKER = MarkerFactory.getMarker("UI");
-    private static final Marker APPLICATION_MARKER = MarkerFactory.getMarker("APPLICATION");
-    private ConfigurableApplicationContext configurableApplicationContext;
+    static final Marker UI_MARKER = MarkerFactory.getMarker("UI");
+    static final Marker APPLICATION_MARKER = MarkerFactory.getMarker("APPLICATION");
+    ConfigurableApplicationContext configurableApplicationContext;
 
     /**
      * Main method that serves as the entry point of the application.
