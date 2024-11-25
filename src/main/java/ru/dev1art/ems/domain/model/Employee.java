@@ -1,7 +1,6 @@
 package ru.dev1art.ems.domain.model;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import java.math.BigDecimal;
@@ -12,6 +11,7 @@ import java.time.LocalDate;
  * @project EMS
  * @date 09.11.2024
  */
+
 @Data
 @Entity
 @NoArgsConstructor
